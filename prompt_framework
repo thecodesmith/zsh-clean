@@ -16,6 +16,8 @@
 # %2 => vcs dirty
 # %3 => vcs action
 # %4 => cmd execution time
+# %5 => current working directory - full path
+# %6 => current working directory - name only
 # %(?..) => prompt conditional - %(condition.true.false)
 # terminal codes:
 # \e7   => save cursor position
@@ -123,6 +125,7 @@ prompt_clean_precmd() {
     psvar[2]=$vcs_info_msg_1_
     psvar[3]=$vcs_info_msg_2_
     psvar[5]=`prompt_clean_pwd`
+    psvar[6]=`prompt_clean_pwd_short`
 }
 
 prompt_clean_chpwd() {
@@ -177,6 +180,10 @@ prompt_clean_pwd() {
     else
         printf "$p"
     fi
+}
+
+prompt_clean_pwd_short() {
+    printf "$(basename $PWD)"
 }
 
 prompt_clean_check_cmd_exec_time() {
